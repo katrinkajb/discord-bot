@@ -19,16 +19,17 @@ console.log(topOfRolesList);
     if(!message.author.bot) 
     console.log(message.guild.roles.cache)
 // creates a role just below the powerbot permission. ALways has to be one step lower than the bot permission. Will need to set up bot permission in initial setup
-    // message.guild.roles.create({ 
-    //     data: {
-    //         name: 'temporary role',
-    //         // set properties here
-    //         position: topOfRolesList,
-    //         // Must be decimal
-    //         color: 6030083,
-    //         permissions: []
-    //     }
-    // });
+    message.guild.roles.create({ 
+        data: {
+            name: 'temporary role',
+            // set properties here
+            position: topOfRolesList,
+            // Must be decimal
+            color: 6030083,
+            permissions: []
+        }
+    });
+
 
 // will have to find the new role's id in order to delete the right now
 
