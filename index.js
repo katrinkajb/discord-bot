@@ -15,29 +15,33 @@ client.on('message', message => {
     
     const topOfRolesList = rolesCount - 1;
 
-console.log(topOfRolesList);
-    if(!message.author.bot) 
-    console.log(message.guild.roles.cache)
-// creates a role just below the powerbot permission. ALways has to be one step lower than the bot permission. Will need to set up bot permission in initial setup
-    message.guild.roles.create({ 
-        data: {
-            name: 'temporary role',
-            // set properties here
-            position: topOfRolesList,
-            // Must be decimal
-            color: 6030083,
-            permissions: []
-        }
-    });
+    if(!message.author.bot) {
 
+        let newRoleId = '';    
 
-// will have to find the new role's id in order to delete the right now
+        message.guild.roles.create({ 
+            data: {
+                name: 'SHAME ROLE',
+                // creates a role just below the powerbot permission. Always has to be one step lower than the bot permission. Will need to set up bot permission in initial setup
+                position: topOfRolesList,
+                // Must be decimal
+                color: 6030083,
+                permissions: []
+            }
+        })
+        // finds id of newly created role
+        .then((result) => {
+            newRoleId = result.id;
+            message.member.roles.add(result);
+            message.reply('SHAME ON YOU');
+        })
 
-    client.setTimeout( () => {
-        message.guild.roles.cache.find(role => role.id === '834199832242552854').delete();
-        console.log('timeout complete')
-        }, 5000);
-    
-
-
+        client.setTimeout( () => {
+            message.guild.roles.cache.find(role => role.id === newRoleId).delete();
+            console.log('timeout complete');
+            message.reply('You have been released from your shame');
+            }, 5000);
+    }
 })
+
+// Won't work on server owner, need to figure out a different process for that case or owners only get light shame without losing any permissions
